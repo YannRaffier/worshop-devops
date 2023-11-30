@@ -28,10 +28,10 @@ node() {
             sh "bash ./.platforms/ci/build.sh"
         }
 
-//        stage("Sonarqube") {
-//            println "Qualimetry Sonarqube"
-//            sh "bash ./.platforms/ci/sonar.sh"
-//        }
+        stage("Sonarqube") {
+            println "Qualimetry Sonarqube"
+            sh "bash ./.platforms/ci/sonar.sh"
+        }
 
         stage("Package") {
             // DockerService.instance().login(DockerRegistry.getDefaultRegistry())
