@@ -1,0 +1,6 @@
+*.iml
+**/target
+**/reports
+**/node_modules
+**/.scannerwork/
+**/_volumes

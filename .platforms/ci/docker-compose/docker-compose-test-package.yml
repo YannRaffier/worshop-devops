@@ -1,0 +1,33 @@
+# Use root/example as user/password credentials
+version: '3.4'
+
+services:
+  back:
+    image: localhost:18044/workshop/workshop-devops:0.0.1
+    container_name: workshop-devops-test-package
+    ports:
+      - "8000:8080"
+    #volumes:
+    #  - ${WORKSPACE}/sources/src/main/resources/application.properties:/code/config/application.properties
+
+  db:
+    image: mariadb:10.6.13
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - ${WORKSPACE}/_volumes/mariadb:/var/lib/mysql:rw
+    environment:
+      MARIADB_USER: admin
+      MARIADB_PASSWORD: admin
+      MARIADB_DATABASE: workshop
+      MARIADB_ROOT_PASSWORD: admin
+
+  adminer:
+    image: adminer:4.8.1
+    restart: always
+    command: php -S 0.0.0.0:8080 -t /var/www/html
+    ports:
+      - 8083:8080
+    environment:
+      ADMINER_DESIGN: pepa-linha

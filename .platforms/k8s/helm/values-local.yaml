@@ -1,0 +1,5 @@
+app:
+  name: workshop-devops-local
+  loglevel: INFO
+  ingress:
+    host: workshop-devops-local.localhost

@@ -1,0 +1,11 @@
+app:
+  name: workshop-devops
+  image:
+    name: "localhost:18044/workshop/workshop-devops"
+    tag: "0.0.1"
+  loglevel: INFO
+  ingress:
+    host: workshop-devops.localhost
+  service:
+    port: 80
+    targetPort: 8080

@@ -1,0 +1,53 @@
+version: '3.4'
+
+services:
+#  nexus:
+#    image: sonatype/nexus3:3.62.0
+#    container_name: nexus
+#    volumes:
+#      - /opt/workshop/nexus/nexus-data:/nexus-data
+#    ports:
+#      - "8081:8081"
+#      - "18044:18044"
+#      - "18444:18444"
+
+  jenkins:
+    build:
+      context: "${WORKSPACE}"
+      dockerfile: "${WORKSPACE}/.platforms/tools/Dockerfile-Jenkins"
+    container_name: jenkins
+    privileged: true
+    user: root
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - /var/jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/local/bin/docker:/usr/local/bin/docker
+
+  sonarqube:
+    image: sonarqube:10.3.0-community
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://sonarqube-postgres:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+    volumes:
+      - /opt/workshop/sonarqube/conf:/opt/sonarqube/conf
+      - /opt/workshop/sonarqube/data:/opt/sonarqube/data
+      - /opt/workshop/sonarqube/extensions:/opt/sonarqube/extensions
+      - /opt/workshop/sonarqube/logs:/opt/sonarqube/logs
+      - /opt/workshop/sonarqube/temp:/opt/sonarqube/temp
+
+  sonarqube-postgres:
+    image: postgres:13.4
+    container_name: sonarqube-postgres
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - /opt/workshop/sonarqube/postgresql:/var/lib/postgresql
+      - /opt/workshop/sonarqube/postgresql/data:/var/lib/postgresql/data

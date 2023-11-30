@@ -1,0 +1,4 @@
+appVersion: 4.9.1
+description: Helm chart pour déployer le projet
+name: workshop-devops
+version: 1.0.0

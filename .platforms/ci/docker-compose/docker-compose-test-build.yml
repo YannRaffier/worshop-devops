@@ -1,0 +1,15 @@
+# Use root/example as user/password credentials
+version: '3.4'
+
+services:
+  back:
+    image: openjdk:17.0.2-slim
+    container_name: workshop-devops
+    ports:
+      - "8000:8080"
+    volumes:
+      - ${WORKSPACE}/sources/target/workshop-devops.jar:/code/app.jar
+      #- ${WORKSPACE}/sources/src/main/resources/application.properties:/code/config/application.properties
+    command: "java -jar /code/app.jar"
+
+    

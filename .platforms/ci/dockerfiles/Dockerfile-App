@@ -1,0 +1,10 @@
+FROM openjdk:17.0.2-slim
+
+# cd /code
+WORKDIR /code
+
+# Copy du jar
+COPY sources/target/workshop-devops.jar /code/app.jar
+
+# java -jar /code/app.jar
+ENTRYPOINT ["java","-jar","/code/app.jar"]

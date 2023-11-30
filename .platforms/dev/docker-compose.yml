@@ -1,0 +1,18 @@
+# Use root/example as user/password credentials
+version: '3.4'
+
+services:
+  back:
+    image: maven:3.8.5-openjdk-17
+    container_name: workshop-devops
+    working_dir: /code
+    ports:
+      - "8000:8080"
+    volumes:
+      - ${HOME}:${USER_HOME}
+      - ${HOME}/passwd:/etc/passwd:ro
+      - ${HOME}/group:/etc/group:ro
+      - ${USER_HOME}/.m2:/root/.m2
+      - ${WORKSPACE}/sources/src:/code/src
+      - ${WORKSPACE}/sources/pom.xml:/code/pom.xml
+    command: "mvn spring-boot:run"
